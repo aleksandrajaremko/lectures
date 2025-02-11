@@ -15,6 +15,8 @@ execute:
 ```{r}
 ## Your code goes here
 
+
+
 ```
 
 2. Figure out the encoding of the file.
@@ -46,18 +48,18 @@ execute:
 library(tibble)
 library(streamR)
 
+install.packages("rtweet")
+library(rtweet)
+
 ```
 
 ```{r}
 ## Your code goes here
 
 #Set the local path
-wdir <- "C:\\Users\\jarem\\OneDrive\\Dokumenty\\LSE (personal cloud)\\Coursework\\MY459 Quant text analysis\\Githubcmterials\\week02\\personal notes" 
-lfile <- file.path(wdir, "trump-tweets.json") 
-
-##Read in the data
-tweets <- parseTweets(lfile)
-as_tibble(tweets)
+tweets <- paste0("C:/Users/jarem/OneDrive/Dokumenty/LSE (personal cloud)/Coursework/MY459 Quant text analysis/Github materials/week02/personal notes/trump-tweets.json") %>%
+  parseTweets() %>%
+  tibble() 
 
 ```
 
@@ -66,7 +68,17 @@ as_tibble(tweets)
 ```{r}
 ## Your code goes here
 
+tweets <- tweets %>% 
+  mutate(created_at = str_replace(created_at, "^[A-z]+ ([A-z]+) ([0-9]+) ([^ ]+) .+?([0-9]+)$", "\\1 \\2 \\4 \\3")) %>% 
+  mutate(created_at = mdy_hms(created_at))
 
+tweets %>% 
+  count(created_at) %>%
+  arrange(desc(n)) %>%
+  filter(n > 1) %>%
+  select(n) %>%
+  sum() %>%
+  paste("There are", ., "tweets posted at the same time as another tweet.")
 
 
 ```

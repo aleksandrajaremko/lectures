@@ -18,7 +18,6 @@ First, let's do some "directory management" by specifying the file path to the f
 wdir <- "C:/Users/jarem/OneDrive/Dokumenty/LSE (personal cloud)/Coursework/MY459 Quant text analysis/Github materials/week04" # <- paste your path here
 ```
 
-
 We will look at a corpus of tweets posted by the four leading candidates in the 2016 US Presidential primaries. These are contained in a CSV file called `candidate-tweets.csv` available on the course website (see link below). First, let's download the file directly in R:
 
 ```{r}
