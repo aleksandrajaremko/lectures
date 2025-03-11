@@ -25,7 +25,7 @@ Our running example will be the set of tweets posted by Donald Trump's Twitter a
 rfile <- "https://github.com/lse-my459/lectures/blob/master/week02/trump-tweets.json"
 
 ## Where will we store the local copy if it?
-lfile <- ("C:\\Users\\jarem\\OneDrive\\Dokumenty\\LSE (personal cloud)\\Coursework\\MY459 Quant text analysis\\Github materials\\week02\\personal notes\\trump-tweets.json") # creates full file path
+lfile <- ("C://Users//jarem//OneDrive//Dokumenty//LSE (personal cloud)//Coursework//MY459 Quant text analysis//Github materials//week02//personal notes//trump-tweets.json") # creates full file path
 
 ## Check if you have the file yet and if not, download it to correct location
 if(!file.exists(lfile)){
@@ -91,6 +91,7 @@ Let's dig into the data a little bit more. Given the source of the dataset, we c
 
 ```{r}
 grep('immigration', tweets$text[1:70])
+
 ```
 
 `grepl` returns `TRUE` or `FALSE`, indicating whether each element of the character vector contains that particular pattern.

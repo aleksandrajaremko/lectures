@@ -15,6 +15,17 @@ execute:
 
 ```{r}
 ### Your answer goes here
+
+sounds <- c(
+  "country" = "United States", 
+  "law" = "law?|constitution?", 
+  "freedom" = 
+
+  ## law, laws, lawyers, lawful, law 
+  
+  "freedom"=""
+)
+
 ```
 
 2. Apply the dictionary to the corpus of inaugural addresses. Be sure to account for possible regex patterns (if needed) and keep a count of every word that was not categorised using the dictionary. If you need to, consult the help docs: <https://quanteda.io/reference/dfm_lookup.html>.
