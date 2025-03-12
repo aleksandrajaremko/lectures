@@ -17,14 +17,15 @@ execute:
 ### Your answer goes here
 
 sounds <- c(
-  "country" = "United States", 
-  "law" = "law?|constitution?", 
-  "freedom" = 
-
-  ## law, laws, lawyers, lawful, law 
-  
-  "freedom"=""
+  "country" = "united states, united states of america", 
+  "law" = "\\b(?:law(?:ful|yer|yers|s|fully)|constitution(?:al|s)?\\b", 
+  "freedom" = "\\b(?:free(?:dom|ing|ly|doms|ed)?|liber(?:ty|ties|ate|ated|ation|ating)\\b"
 )
+
+my.dict <- dictionary(list(country = c("united states", "united states of america"),
+                         law=c("law[a-z]*", "constitution[a-z]*"),
+                         freedom=c("free[a-z]*", "libert[a-z]*")))
+
 
 ```
 
@@ -32,12 +33,35 @@ sounds <- c(
 
 ```{r}
 ### Your answer goes here
+
+inaug.dict <- data_corpus_inaugural %>%
+  tokens() %>%
+  tokens_lookup(my.dict, valuetype = "regex", nomatch = "NONE") %>%
+  dfm()
+
+
 ```
 
 3. Calculate the percentage of each inaugrual address devoted to themes around freedom (as captured by your simple dictionary). Which two presidents have the highest percent, and which have the lowest?
 
 ```{r}
 ### Your answer goes here
+
+
+free <- inaug.dict[,3]/inaug.dict[,4]
+free
+
+free <- tibble(address = row.names(free), freedom = as.numeric(free)) %>%
+  arrange(desc(freedom)) %>%
+  filter(row_number() <= 4 | row_number() > (nrow(.) - 4))
+
+print(free)
+
+#### HOW DO YOU ASCEND IT IN DESCENDING ORDER?
+
+class(free)
+inaug.dict
+
 ```
 
 ## Part 2: Republican versus Democratic inaugural rhetoric
@@ -48,12 +72,36 @@ We will use all post-war inaugural addresses to measure which words are most dis
 
 ```{r}
 ### Your answer goes here
+
+library("quanteda")
+inaug.corp <- data_corpus_inaugural
+print(inaug.corp)
+
+inaug.corp <- corpus_subset(inaug.corp, Year > 1945)
+cat(inaug.corp)
+
+inaug.toks <- inaug.corp %>%
+  tokens(remove_punct = TRUE,
+         remove_symbols = TRUE,
+         remove_numbers = TRUE) %>%
+  tokens_tolower() %>%
+  tokens_remove(stopwords("english")) %>%
+  tokens_wordstem()
+
+inaug.toks
+
+docvars(inaug.toks)
+
+
 ```
 
 2. Create an R function that creates contingency table that you will use to calculate the relationship between how often a specific token appears in a speech and whether the speech was delivered by a Republican or Democrat. Make sure that the function returns a _matrix_, not a `quanteda` object.
 
 ```{r}
 ### Your answer goes here
+
+
+
 ```
 
 3. Begin by focusing on one token, `nation`. Use your function to create a contingency table and print it here.

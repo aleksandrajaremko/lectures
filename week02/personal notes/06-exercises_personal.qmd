@@ -70,11 +70,6 @@ colnames(tweets)
 
 ```
 
-
-```
-
-
-
 2. Find the column corresponding to the date and time of each tweet and format it as a date-time object. See <https://lubridate.tidyverse.org/articles/lubridate.html#parsing-dates-and-times>. How many tweets are posted at exactly the same time as another tweet? Hint: to see if there are tweets posted at the same time, use the [`count()`](https://dplyr.tidyverse.org/reference/count.html) function on the date-time column you just created.
 
 ```{r}
